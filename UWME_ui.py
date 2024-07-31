@@ -6,6 +6,10 @@ import moviepy.editor as mp
 import tkinter as tk
 from tkinter import filedialog, messagebox
 from tkinter import ttk
+from tkinter import Toplevel, Label
+from threading import Thread
+from PIL import Image, ImageTk
+import time
 
 # Function to split video into frames
 def split_video_into_frames(video_path):
@@ -52,7 +56,7 @@ def enhance_frame(img, alpha, beta, hue_shift, top_percent, omega, enhance_type)
                             max(0, x):min(x + patch_size, img.shape[1])]
                 patch_min = np.min(patch, axis=2)
                 dark_channel[max(0, y):min(y + patch_size, img.shape[0]),
-                             max(0, x):min(x + patch_size, img.shape[1])] = patch_min
+                              max(0, x):min(x + patch_size, img.shape[1])] = patch_min
         return dark_channel
 
     def estimate_atmospheric_light(img, dark_channel, top_percent):
@@ -165,6 +169,13 @@ def process_image(input_image_path, output_image_path, alpha, beta, hue_shift, t
 
     enhanced_img = enhance_frame(img, alpha, beta, hue_shift, top_percent, omega, enhance_type)
     cv2.imwrite(output_image_path, enhanced_img)
+    update_progress(25)
+    time.sleep(1)  # Simulating some processing time 
+    update_progress(50)
+    time.sleep(1)
+    update_progress(75)
+    time.sleep(1) 
+    update_progress(100)
     print(f"Image successfully written to {output_image_path}")
 
 def process_video(input_video_path, output_video_path, alpha, beta, hue_shift, top_percent, omega, enhance_type):
@@ -174,7 +185,14 @@ def process_video(input_video_path, output_video_path, alpha, beta, hue_shift, t
     if not frames:
         return
 
-    enhanced_frames = [enhance_frame(frame, alpha, beta, hue_shift, top_percent, omega, enhance_type) for frame in frames]
+    total_frames = len(frames)
+    enhanced_frames = []
+    for i, frame in enumerate(frames):
+        enhanced_frame = enhance_frame(frame, alpha, beta, hue_shift, top_percent, omega, enhance_type)
+        enhanced_frames.append(enhanced_frame)
+        progress = int((i + 1) / total_frames * 100)
+        update_progress(progress)
+
     frame_height, frame_width = frames[0].shape[:2]
     fps = 30
     codec = 'XVID'
@@ -212,10 +230,10 @@ def save_file():
     file_extension = os.path.splitext(input_path_var.get())[1].lower()
     if file_extension in ['.jpg', '.jpeg', '.png']:
         file_path = filedialog.asksaveasfilename(defaultextension=".png",
-                                                filetypes=[("PNG files", "*.png"), ("JPEG files", "*.jpg"), ("All files", "*.*")])
+                                                 filetypes=[("PNG files", "*.png"), ("JPEG files", "*.jpg"), ("All files", "*.*")])
     elif file_extension in ['.mp4', '.avi', '.mov']:
         file_path = filedialog.asksaveasfilename(defaultextension=".mp4",
-                                                filetypes=[("MP4 files", "*.mp4"), ("AVI files", "*.avi"), ("MOV files", "*.mov"), ("All files", "*.*")])
+                                                 filetypes=[("MP4 files", "*.mp4"), ("AVI files", "*.avi"), ("MOV files", "*.mov"), ("All files", "*.*")])
     else:
         messagebox.showerror("Error", "Unsupported file format")
         return
@@ -223,6 +241,39 @@ def save_file():
     if file_path:
         output_path_var.set(file_path)
 
+def show_processing_window():
+    global processing_window, progress_label, loading_label
+    processing_window = Toplevel(root)
+    processing_window.title("Processing...")
+    processing_window.geometry("350x80")  # Adjust size as needed
+
+    # Loading GIF
+    global loading_gif
+    loading_gif = ImageTk.PhotoImage(Image.open("loading.gif").resize((30, 30)))
+    loading_label = Label(processing_window, image=loading_gif)
+    loading_label.grid(row=0, column=0, padx=10, pady=10)
+
+    # Progress label (combined text and percentage)
+    progress_label = Label(processing_window, text="This might take a while... 0%")
+    progress_label.grid(row=0, column=1, padx=10, pady=10)
+
+    processing_window.resizable(False, False) 
+    processing_window.transient(root)
+
+    processing_window.grab_set()
+    root.update()
+
+def hide_processing_window():
+    global processing_window
+    if processing_window:
+        processing_window.destroy()
+        processing_window = None
+    root.update()
+
+def update_progress(percent):
+    global progress_label
+    progress_label.config(text=f"This might take a while... {percent}% Don't Close This Window")
+    root.update()
 
 def apply_changes():
     input_path = input_path_var.get()
@@ -238,7 +289,15 @@ def apply_changes():
         messagebox.showerror("Error", "Please select both input and output files")
         return
 
-    main(input_path, output_path, alpha, beta, hue_shift, top_percent, omega, enhance_type)
+    show_processing_window()
+
+    processing_thread = Thread(target=main, args=(input_path, output_path, alpha, beta, hue_shift, top_percent, omega, enhance_type))
+    processing_thread.start()
+
+    while processing_thread.is_alive():
+        root.update()
+    hide_processing_window()
+
     messagebox.showinfo("Success", "Processing complete!")
 
 # Create the Tkinter window
@@ -253,6 +312,8 @@ hue_var = tk.StringVar(value="5.8")
 top_var = tk.StringVar(value="0.001")
 omega_var = tk.StringVar(value="0.6")
 enhance_type_var = tk.StringVar(value="normal")
+
+processing_window = None 
 
 # Layout
 tk.Label(root, text="Select Input File:").grid(row=0, column=0, padx=10, pady=5)
