@@ -245,13 +245,7 @@ def show_processing_window():
     global processing_window, progress_label, loading_label
     processing_window = Toplevel(root)
     processing_window.title("Processing...")
-    processing_window.geometry("350x80")  # Adjust size as needed
-
-    # Loading GIF
-    global loading_gif
-    loading_gif = ImageTk.PhotoImage(Image.open("loading.gif").resize((30, 30)))
-    loading_label = Label(processing_window, image=loading_gif)
-    loading_label.grid(row=0, column=0, padx=10, pady=10)
+    processing_window.geometry("340x50")  # Adjust size as needed
 
     # Progress label (combined text and percentage)
     progress_label = Label(processing_window, text="This might take a while... 0%")
@@ -310,7 +304,7 @@ alpha_var = tk.StringVar(value="0.8")
 beta_var = tk.StringVar(value="0")
 hue_var = tk.StringVar(value="5.8")
 top_var = tk.StringVar(value="0.001")
-omega_var = tk.StringVar(value="0.6")
+omega_var = tk.StringVar(value="0.2")
 enhance_type_var = tk.StringVar(value="normal")
 
 processing_window = None 
