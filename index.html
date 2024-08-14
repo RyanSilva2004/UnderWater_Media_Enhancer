@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UWME - Global</title>
+    <link rel="icon" href="https://img.icons8.com/?size=100&id=20890&format=png&color=FFFFFF" type="image/png"> <!-- Favicon -->
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            height: 100%;
+            width: 100%;
+            overflow: hidden;
+            background-color: #0d0d0d; /* Darker background */
+            font-family: 'Montserrat', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            cursor: none;
+        }
+
+        .container {
+            text-align: center;
+            z-index: 2;
+            position: relative;
+        }
+
+        .lines {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 100%;
+            width: 90vw;
+            margin: auto;
+            z-index: 1;
+        }
+
+        .line {
+            position: absolute;
+            width: 1px;
+            height: 100%;
+            top: 0;
+            left: 50%;
+            background: rgba(255, 255, 255, 0.05); /* Lighter line for a subtle effect */
+            overflow: hidden;
+        }
+
+        .line::after {
+            content: '';
+            display: block;
+            position: absolute;
+            height: 15vh;
+            width: 100%;
+            top: -50%;
+            left: 0;
+            background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, #ffffff 75%, #ffffff 100%);
+            animation: drop 7s 0s infinite;
+            animation-fill-mode: forwards;
+            animation-timing-function: cubic-bezier(0.4, 0.26, 0, 0.97);
+        }
+
+        .line:nth-child(1) {
+            margin-left: -25%;
+        }
+
+        .line:nth-child(1)::after {
+            animation-delay: 2s;
+        }
+
+        .line:nth-child(3) {
+            margin-left: 25%;
+        }
+
+        .line:nth-child(3)::after {
+            animation-delay: 2.5s;
+        }
+
+        @keyframes drop {
+            0% {
+                top: -50%;
+            }
+            100% {
+                top: 110%;
+            }
+        }
+
+        .video-container {
+            position: relative;
+            width: 80%;
+            max-width: 800px;
+            margin: 20px auto;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.7);
+            cursor: pointer; /* Change cursor to pointer */
+        }
+
+        video {
+            width: 100%;
+            height: auto;
+        }
+
+        .play-pause-btn {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(255, 255, 255, 0.7);
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            z-index: 2;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 60px;
+            height: 60px;
+        }
+
+        .play-pause-btn img {
+            width: 30px;
+            height: 30px;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        p {
+            font-size: 1.5em;
+            margin: 20px 0;
+            color: #cccccc; /* Lighter text color */
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+            z-index: 3;
+        }
+
+        .button {
+            display: inline-flex;
+            align-items: center;
+            min-width: 160px;
+            padding: 15px 25px;
+            border: 0;
+            border-radius: 30px;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            font-size: 1.1em;
+            font-weight: 700;
+            text-transform: uppercase;
+            text-decoration: none;
+            letter-spacing: 1.5px;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+            z-index: 3;
+            margin: 10px;
+        }
+
+        .button img {
+            margin-right: 10px;
+            width: 24px;
+            height: 24px;
+        }
+
+        .button:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-5px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.8);
+        }
+
+        .cursor {
+            pointer-events: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+        }
+
+        .cursor__ball {
+            position: absolute;
+            transform-origin: center;
+            pointer-events: none;
+        }
+
+        .cursor__ball--big {
+            width: 15px; /* Larger black circle */
+            height: 15px;
+            background: #311c9cfc;
+            border-radius: 50%;
+            z-index: 2; /* Black circle on top */
+        }
+
+        .cursor__ball--small {
+            width: 40px; /* Larger white circle */
+            height: 40px;
+            background: rgba(255, 255, 255, 0.627);
+            border-radius: 50%;
+            transition: transform 0.2s ease; /* Small delay effect */
+            z-index: 1; /* White circle behind */
+        }
+    </style>
+</head>
+<body>
+        <div class="line"></div>
+        <div class="line"></div>
+        <div class="line"></div>
+    </div>
+    <div class="container">
+        <div class="video-container" id="videoContainer">
+            <video id="myVideo" autoplay muted>
+                <source src="demo.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            <button id="playPauseBtn" class="play-pause-btn hidden">
+                <img src="https://img.icons8.com/?size=100&id=398&format=png&color=000000" alt="Play Icon">
+            </button>
+        </div>                
+        <p>Enhance Your <b>Underwater Media</b> Using Deep Image Processing (DIP)</p>
+        <a href="https://github.com/RyanSilva2004/UnderWater_Media_Enhancment-Using-DIP/blob/4b3852a09c16706d0b2e371a5bea03c00e33608e/Underwater%20Media%20Enhancer%20v0.1.exe" class="button" download>
+            <img src="https://img.icons8.com/?size=100&id=102497&format=png&color=000000" alt="Download Icon">
+            Download
+        </a>
+        <a href="https://github.com/RyanSilva2004/UnderWater_Media_Enhancment-Using-DIP" class="button">
+            <img src="https://img.icons8.com/?size=100&id=12599&format=png&color=000000" alt="Github Icon">
+            Github
+        </a>
+    </div>
+
+    <!-- Custom Cursor -->
+    <div class="cursor">
+        <div class="cursor__ball cursor__ball--small"></div>
+        <div class="cursor__ball cursor__ball--big"></div>
+    </div>
+
+    <script>
+        const bigBall = document.querySelector('.cursor__ball--big');
+        const smallBall = document.querySelector('.cursor__ball--small');
+
+        // Move the cursor
+        document.body.addEventListener('mousemove', (e) => {
+            bigBall.style.transform = `translate(${e.pageX - bigBall.offsetWidth / 2}px, ${e.pageY - bigBall.offsetHeight / 2}px)`;
+            smallBall.style.transform = `translate(${e.pageX - smallBall.offsetWidth / 2}px, ${e.pageY - smallBall.offsetHeight / 2}px)`;
+        });
+
+        const video = document.getElementById('myVideo');
+        const playPauseBtn = document.getElementById('playPauseBtn');
+        const videoContainer = document.getElementById('videoContainer');
+
+        function togglePlayPause() {
+            if (video.paused) {
+                video.play();
+                playPauseBtn.classList.add('hidden'); // Hide button when video plays
+            } else {
+                video.pause();
+                playPauseBtn.classList.remove('hidden'); // Show button when video pauses
+            }
+        }
+
+        // Toggle play/pause on video container click
+        videoContainer.addEventListener('click', togglePlayPause);
+
+        // Ensure the play/pause button displays correctly
+        video.addEventListener('pause', () => {
+            playPauseBtn.classList.remove('hidden');
+        });
+
+        video.addEventListener('play', () => {
+            playPauseBtn.classList.add('hidden');
+        });
+
+        // Hide button when clicked
+        playPauseBtn.addEventListener('click', () => {
+            togglePlayPause();
+        });
+    </script>
+</body>
+</html>

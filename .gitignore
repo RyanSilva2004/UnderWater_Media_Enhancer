@@ -2,6 +2,8 @@ venv/
 UWME_progressbar.py
 loading.gif
 README.md
+video/
+images/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
