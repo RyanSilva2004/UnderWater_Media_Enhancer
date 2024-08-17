@@ -3,6 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Enhance your underwater images and videos with our free, open-source software using advanced digital image processing techniques. Perfect for divers, photographers, and marine enthusiasts.">
+    <meta name="keywords" content="underwater image enhancement, free underwater video enhancer, digital image processing, open-source software, underwater photography, video enhancement tool, marine image processing, image dehazing, video dehazing">
+    <meta name="robots" content="index, follow">
+    <meta property="og:title" content="Free Open-Source Underwater Image & Video Enhancement Software">
+    <meta property="og:description" content="Enhance your underwater media with advanced digital image processing. Open-source and free to use.">
+    <meta property="og:image" content="https://img.icons8.com/?size=100&id=20883&format=png&color=000000">
+    <meta property="og:url" content="https://yourwebsiteurl.com">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Free Open-Source Underwater Image & Video Enhancement Software">
+    <meta name="twitter:description" content="Upgrade your underwater images and videos with our free, open-source software. Ideal for marine photographers and enthusiasts.">
+    <meta name="twitter:image" content="https://img.icons8.com/?size=100&id=20883&format=png&color=000000">
+    
+
     <title>UWME - Global</title>
     <link rel="icon" href="https://img.icons8.com/?size=100&id=20890&format=png&color=FFFFFF" type="image/png"> <!-- Favicon -->
     <style>
@@ -196,7 +210,8 @@
             z-index: 2; /* Black circle on top */
         }
 
-        .cursor__ball--small {
+        .cursor__ball--small 
+        {
             width: 40px; /* Larger white circle */
             height: 40px;
             background: rgba(255, 255, 255, 0.627);
@@ -204,6 +219,72 @@
             transition: transform 0.2s ease; /* Small delay effect */
             z-index: 1; /* White circle behind */
         }
+
+        .card {
+            --font-color: #fefefe41;
+            --font-color-sub: #7e7e7e50;
+            --bg-color: #04030300;
+            --main-color: #fefefe76;
+            width: 190px;
+            height: 80px;
+            background: var(--bg-color);
+            border-radius: 0px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            position: fixed;
+            bottom: 10px;
+            right: 10px;
+        }
+
+        .card-title {
+            text-align: center;
+            color: var(--font-color);
+            font-size: 18px;
+            font-weight: 400;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        }
+
+        .card-title span {
+            font-size: 14px;
+            color: var(--font-color-sub);
+        }
+
+        .card-socials {
+            display: flex;
+            height: 0;
+            opacity: 0;
+            margin-top: 15px;
+            gap: 15px;
+            transition: 0.5s;
+        }
+
+        .card-socials-btn {
+            width: 20px;
+            height: 20px;
+            border: none;
+            background: transparent;
+            cursor: pointer;
+        }
+
+        .card-socials-btn svg {
+            width: 100%;
+            height: 100%;
+            fill: var(--main-color);
+        }
+
+        .card:hover > .card-socials {
+            opacity: 1;
+            height: 30px;
+        }
+
+        .card-socials-btn:hover {
+            transform: translateY(-5px);
+            transition: all 0.15s;
+        }
+
     </style>
 </head>
 <body>
@@ -221,14 +302,14 @@
                 <img src="https://img.icons8.com/?size=100&id=398&format=png&color=000000" alt="Play Icon">
             </button>
         </div>                
-        <p>Enhance Your <b>Underwater Media</b> Using Deep Image Processing (DIP)</p>
-        <a href="https://github.com/RyanSilva2004/UnderWater_Media_Enhancment-Using-DIP/blob/4b3852a09c16706d0b2e371a5bea03c00e33608e/Underwater%20Media%20Enhancer%20v0.1.exe" class="button" download>
+        <p>Enhance Your <b>Underwater Media</b> Using Deep Image Processing For <b>Free</b></p>
+        <a href="Underwater Media Enhancer v0.1.exe" class="button" download>
             <img src="https://img.icons8.com/?size=100&id=102497&format=png&color=000000" alt="Download Icon">
             Download
         </a>
-        <a href="https://github.com/RyanSilva2004/UnderWater_Media_Enhancment-Using-DIP" class="button">
+        <a href="https://github.com/RyanSilva2004/UnderWater_Media_Enhancer" class="button">
             <img src="https://img.icons8.com/?size=100&id=12599&format=png&color=000000" alt="Github Icon">
-            Github
+            Contribute
         </a>
     </div>
 
@@ -237,6 +318,20 @@
         <div class="cursor__ball cursor__ball--small"></div>
         <div class="cursor__ball cursor__ball--big"></div>
     </div>
+
+<div class="card">
+    <div class="card-title">Ryan Silva<br>
+        <span>Lead @Uwme</span>
+    </div>
+    <div class="card-socials">
+        <button class="card-socials-btn github" onclick="openInNewTab('https://github.com/RyanSilva2004')">
+            <svg xmlns="http://www.w3.org/2000/svg" width="33" height="33" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"></path></svg>
+        </button>
+        <button class="card-socials-btn linkedin" onclick="openInNewTab('https://www.linkedin.com/in/ryansilvasl/')">
+            <svg xmlns="http://www.w3.org/2000/svg" width="512" viewBox="0 0 512 512" height="512"><path d="m51.326 185.85h90.011v270.872h-90.011zm45.608-130.572c-30.807 0-50.934 20.225-50.934 46.771 0 26 19.538 46.813 49.756 46.813h.574c31.396 0 50.948-20.814 50.948-46.813-.589-26.546-19.551-46.771-50.344-46.771zm265.405 124.209c-47.779 0-69.184 26.28-81.125 44.71v-38.347h-90.038c1.192 25.411 0 270.872 0 270.872h90.038v-151.274c0-8.102.589-16.174 2.958-21.978 6.519-16.174 21.333-32.923 46.182-32.923 32.602 0 45.622 24.851 45.622 61.248v144.926h90.024v-155.323c0-83.199-44.402-121.911-103.661-121.911z"></path></svg>
+        </button>
+    </div>
+</div>
 
     <script>
         const bigBall = document.querySelector('.cursor__ball--big');
@@ -278,6 +373,12 @@
         playPauseBtn.addEventListener('click', () => {
             togglePlayPause();
         });
+
+
+        function openInNewTab(url) {
+            window.open(url, '_blank').focus();
+        }
+
     </script>
 </body>
 </html>
