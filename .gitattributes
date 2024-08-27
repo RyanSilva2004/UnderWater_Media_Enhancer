@@ -1,2 +1,34 @@
-# Auto detect text files and perform LF normalization
-* text=auto
+# Python files
+*.py   text diff=python
+*.ipynb linguist-language=Python
+
+# HTML files
+*.html text diff=html
+
+# CSS files
+*.css  text diff=css
+
+# JavaScript files
+*.js   text diff=javascript
+
+# JSON files
+*.json text diff=json
+
+# YAML files
+*.yml  text
+*.yaml text
+
+# Markdown files
+*.md   text
+
+# Shell scripts
+*.sh   text eol=lf
+
+# Ignore binary files
+*.png  binary
+*.jpg  binary
+*.jpeg binary
+*.gif  binary
+*.pdf  binary
+*.zip  binary
+*.exe binary
